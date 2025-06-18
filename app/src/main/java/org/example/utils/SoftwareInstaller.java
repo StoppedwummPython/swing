@@ -47,7 +47,7 @@ public class SoftwareInstaller {
      * @throws InterruptedException If the process modifying the PATH is interrupted.
      * @throws IllegalArgumentException If input parameters are invalid (e.g., null or empty URL).
      */
-    public Path installSoftware(String zipFileUrl, String appName, String relativeBinPath)
+    public Path installSoftware(String zipFileUrl, String appName, String relativeBinPath,boolean skipPath)
             throws IOException, InterruptedException, IllegalArgumentException {
 
         // --- Input Validation ---
@@ -113,6 +113,10 @@ public class SoftwareInstaller {
         System.out.println("Step 2: Extraction complete.");
         System.out.println("Step 2: Determined target directory for PATH: " + absoluteBinPath);
 
+        if (skipPath) {
+            System.out.println("Skipping PATH modification as per user request.");
+            return null; // Skip PATH modification
+        }
 
         // 3. Add the 'bin' directory to the Windows User PATH
         Path addedPath = null; // Will store the path actually added if successful

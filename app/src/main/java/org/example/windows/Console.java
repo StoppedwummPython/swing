@@ -2,7 +2,10 @@ package org.example.windows;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
+
 import org.example.utils.*;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -22,7 +25,8 @@ public class Console {
 
         SoftwareInstaller softwareInstaller = new SoftwareInstaller();
         try {
-            softwareInstaller.installSoftware("https://nodejs.org/dist/v22.16.0/node-v22.16.0-win-x64.zip", "Node", ".");
+            softwareInstaller.installSoftware("https://nodejs.org/dist/v22.16.0/node-v22.16.0-win-x64.zip", "Node", "", false);
+            softwareInstaller.installSoftware("https://github.com/StoppedwummPython/minecraft-launcher/archive/main.zip", "Minecraft", "", true);
         }  catch (Exception e) {
             e.printStackTrace();
             textArea.append("Error installing software: " + e.getMessage() + "\n");
@@ -31,7 +35,8 @@ public class Console {
         for (String[] command : commands) {
             try {
                 Runtime rt = Runtime.getRuntime();
-                Process proc = rt.exec(command);
+                System.out.println(System.getProperty("user.home"));
+                Process proc = rt.exec(command, null, new File(Paths.get(System.getProperty("user.home"), "Minecraft", "minecraft-launcher-main").toAbsolutePath().toString()));
 
                 BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 

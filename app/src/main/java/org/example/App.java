@@ -12,9 +12,14 @@ public class App {
             switch (selectedOption) {
                 case "Install Client":
                     startWindow.closeWindow();
+                    Installing installingWindow = new Installing();
+                    installingWindow.createWindow();
+                    System.out.println("Selected option: " + selectedOption);
                     Console.createWindow(new String[][]{
-                        {"powershell.exe", "echo", "'Installing Client...'"}
+                        {"powershell.exe", "npm", "i"},
+                        {"powershell.exe", "npm", "run", "start"}
                     });
+                    installingWindow.closeWindow();
                     break;
                 default:
                     System.out.println("Unknown option selected: " + selectedOption);

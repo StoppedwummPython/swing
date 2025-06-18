@@ -18,10 +18,10 @@ public class StartWindow {
     private JButton submitButton;
 
     // Field to store the callback function
-    private BiConsumer<String, String> submitCallback;
+    private BiConsumer<String,String> submitCallback;
 
     public StartWindow() {
-        frame = new JFrame("Example Application");
+        frame = new JFrame("Installer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
         frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
@@ -30,8 +30,6 @@ public class StartWindow {
         radioSel = new RadioSel(new String[] { "Install Client", "Create FAT Installer" });
 
         // frame.add(Img.createImageLabel("/img/Minecraft-New-Logo.png", 400, 200));
-
-        frame.add(directoryBox.getPanel());
         frame.add(radioSel.getPanel());
 
         submitButton = new JButton("Submit");
@@ -39,7 +37,6 @@ public class StartWindow {
         // Add the action listener to the button created in the constructor
         submitButton.addActionListener(e -> {
             String selectedOption = radioSel.getSelectedOption();
-            String directory = directoryBox.getDirectory();
 
             // You can optionally keep the JOptionPane for debugging or remove it
             // JOptionPane.showMessageDialog(frame, "Selected Option: " + selectedOption + "\nDirectory: " + directory);
@@ -47,7 +44,7 @@ public class StartWindow {
             // Call the callback if it has been set
             if (submitCallback != null) {
                 try {
-                    submitCallback.accept(selectedOption, directory);
+                    submitCallback.accept(selectedOption, "");
                 } catch (Exception ex) {
                     // Handle potential exceptions from the callback if needed
                     ex.printStackTrace(); // Or log the error
